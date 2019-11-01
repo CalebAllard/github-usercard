@@ -6,8 +6,18 @@ axios.get('https://api.github.com/users/CalebAllard')
       .then(response =>{
         console.log(response);
         document.querySelector('.cards').appendChild(createUserCard(response.data));
-
-
+        axios.get(`${response.data["followers_url"]}`).then(response =>{
+          console.log(response);
+          let userCard = response.data.forEach(user => {
+            
+            document.querySelector('.cards').appendChild(createUserCard(user));
+          
+          
+          });
+          
+        }).catch(error =>{
+          console.log(`error: ${error}`);
+        })
       })
       .catch(error =>{
         console.log(`error: ${error}`);
